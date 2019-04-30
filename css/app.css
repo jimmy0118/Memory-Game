@@ -54,7 +54,7 @@
     box-shadow: 9px 9px 16px 1px rgb(96, 81, 99);
 }
 
-.deck .card {
+.card {
     width: 21%;
     height: 21%;
     cursor: pointer;
@@ -65,4 +65,5 @@
     background-color: #ffe500;
     border-radius: 20px;
     box-shadow: 7px 6px 12px 3px rgb(21, 19, 7);
+    color: #222c65;
 }
