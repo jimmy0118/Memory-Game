@@ -9,12 +9,22 @@ const cardList = ["fas fa-cat", "fas fa-cat",
                   "fas fa-subway", "fas fa-subway"
                  ];
 
+
+// Create a list for rating
+const starList = [
+                  ["fas fa-star", "fas fa-star", "fas fa-star"],
+                  ["fas fa-star", "fas fa-star", "far fa-star"],
+                  ["fas fa-star", "far fa-star", "far fa-star"]
+                 ];
+
+
 // Global variable
 const deck = document.querySelector('.deck');
 const matchingCard = [];
 const attemptCounter = document.querySelector('.moves');
 let clicks = 0;
 let attempts = 0;
+
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -36,6 +46,7 @@ function shuffle(array) {
   return array;
 }
 
+
 // Set up the initial page
 function initGame() {
 
@@ -51,7 +62,11 @@ function initGame() {
   clicks = 0;
   attempts = 0;
   attemptCounter.textContent = attempts;
+
+  // Set 3 stars for the initial game page
+  rating(attempts);
 }
+
 
 // Function for incremental counter
 function counter() {
@@ -60,7 +75,43 @@ function counter() {
     attempts++;
     attemptCounter.textContent = attempts;
   }
+
+  // Giving ratings based on attempts
+  rating(attempts);
 }
+
+
+// Function of ratings
+function rating(times) {
+  let num = 0;
+  if (times <= 16) {
+    num = 0;
+  } else if (times <= 24 && times > 16) {
+    num = 1;
+  } else {
+    num = 2;
+  }
+  showStar(num);
+}
+
+
+// Function for showing stars
+function showStar(i) {
+  const stars = document.querySelector('.stars');
+
+  // Clean out the old HTML element of showing stars
+  while (stars.firstChild) {
+    stars.removeChild(stars.firstChild);
+  }
+
+  // Creating HTML elements for showing stars
+  for (const star of starList[i]) {
+    const starHtml = document.createElement('li');
+    starHtml.innerHTML = `<i class="${star}"></i>`;
+    stars.appendChild(starHtml);
+  }
+}
+
 
 // Function for matching cards
 function matching(evt) {
@@ -103,8 +154,10 @@ function matching(evt) {
   }
 }
 
+
 // Set up the event listener for all cards.
 deck.addEventListener('click', matching);
+
 
 // Display the initial page
 initGame();
