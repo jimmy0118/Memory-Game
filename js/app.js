@@ -53,6 +53,15 @@ function initGame() {
   attemptCounter.textContent = attempts;
 }
 
+// Function for incremental counter
+function counter() {
+  clicks++;
+  if (clicks % 2 === 0) {
+    attempts++;
+    attemptCounter.textContent = attempts;
+  }
+}
+
 // Function for matching cards
 function matching(evt) {
   if (evt.target.nodeName === 'LI') {
@@ -87,6 +96,9 @@ function matching(evt) {
        evt.target.classList.add('matching');
        matchingCard.push(evt.target);
      }
+
+     // Increment attemptCounter
+     counter();
     }
   }
 }
