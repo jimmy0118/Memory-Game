@@ -33,7 +33,7 @@
      display: inline-block;
  }
 
- .score-board .shuffle {
+ .score-board .restart {
      float: right;
      cursor: pointer;
  }

@@ -24,6 +24,7 @@ const matchingCard = [];
 const attemptCounter = document.querySelector('.moves');
 let clicks = 0;
 let attempts = 0;
+const restart = document.querySelector('.restart');
 
 
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -49,6 +50,10 @@ function shuffle(array) {
 
 // Set up the initial page
 function initGame() {
+  // CLean out the deck
+  while (deck.firstChild) {
+    deck.removeChild(deck.firstChild);
+  }
 
   // Chanege the order of list of the cards and create HTML elements
   for (const card of shuffle(cardList)) {
@@ -157,6 +162,10 @@ function matching(evt) {
 
 // Set up the event listener for all cards.
 deck.addEventListener('click', matching);
+
+
+// Set up the event listener for restart button.
+restart.addEventListener('click', initGame);
 
 
 // Display the initial page
