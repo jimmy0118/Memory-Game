@@ -21,10 +21,14 @@ const starList = [
 // Global variable
 const deck = document.querySelector('.deck');
 const matchingCard = [];
+const matchedCard = [];
 const attemptCounter = document.querySelector('.moves');
 let clicks = 0;
 let attempts = 0;
 const restart = document.querySelector('.restart');
+const time = document.querySelector('.timer');
+let sec = 0;
+let min = 0;
 
 
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -70,12 +74,25 @@ function initGame() {
 
   // Set 3 stars for the initial game page
   rating(attempts);
+
+  // Set time = 00:00
+  sec = 0;
+  min = 0;
+  sec = (sec < 10) ? `0${sec}` : sec;
+  min = (min < 10) ? `0${min}` : min;
+  time.textContent = `${min}:${sec}`;
 }
 
 
 // Function for incremental counter
 function counter() {
   clicks++;
+
+  //Run function timer() when the first click happen
+  if (clicks === 1) {
+    timer();
+  }
+
   if (clicks % 2 === 0) {
     attempts++;
     attemptCounter.textContent = attempts;
@@ -118,9 +135,30 @@ function showStar(i) {
 }
 
 
+// Function of timer
+function timer() {
+  let timer = setInterval(function() {
+    if (sec < 59) {
+      sec++;
+      sec = (sec < 10) ? `0${sec}` : sec;
+    } else {
+      sec = 0;
+      min++;
+      sec = (sec < 10) ? `0${sec}` : sec;
+      min = (min < 10) ? `0${min}` : min;
+    }
+    time.textContent = `${min}:${sec}`;
+    if (matchedCard.length === 16) {
+      clearInterval(timer);
+    }
+  }, 1000);
+}
+
 // Function for matching cards
 function matching(evt) {
   if (evt.target.nodeName === 'LI') {
+
+    // Make sure only two cards are selected at the same time
     if (!evt.target.classList.contains('matching') && matchingCard.length < 2) {
 
       // There is already a card in matchingCard array
@@ -136,18 +174,18 @@ function matching(evt) {
             evt.target.classList.replace('matching', 'matched');
             firstCard.classList.replace('matching', 'matched');
             matchingCard.splice(0, 2);
-          }, 750);
+            matchedCard.push(firstCard);
+            matchedCard.push(evt.target);
+          }, 1000);
         } else {
-
           // Two card are not matched
           setTimeout(function() {
             evt.target.classList.remove('matching');
             firstCard.classList.remove('matching');
             matchingCard.splice(0, 2);
-          }, 750);
+          }, 1000);
         }
       } else {
-
        // No card in matchingCard array
        evt.target.classList.add('matching');
        matchingCard.push(evt.target);

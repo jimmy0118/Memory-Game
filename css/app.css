@@ -38,6 +38,10 @@
      cursor: pointer;
  }
 
+.timer {
+    margin-left: 80px; 
+}
+
  /*
   * Styles for the deck of cards
   */
