@@ -7,21 +7,40 @@
     <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
+    <!-- The game page -->
     <div class="container">
+        <!-- header of the page -->
         <header>
             <h1>Memory Game</h1>
         </header>
+
+        <!-- score board of the page -->
         <section class="score-board">
             <ul class="stars"></ul>
-            <span class="moves"> </span>
+            <span class="moves"></span>
             <span>Attempts</span>
             <span class="timer"></span>
             <div class="restart">
                 <i class="fas fa-redo-alt"></i>
             </div>
         </section>
+
+        <!-- main game of the page -->
         <ul class="deck"></ul>
     </div>
+
+    <!-- the modal -->
+    <div class="modal">
+      <!-- modal content -->
+      <div class="modal-content">
+        <ul class="modal-stars"></ul>
+        <h2>Congratulations! You Won!</h2>
+        <span class="modal-moves"></span>
+        <div class="replay">Play again!</div>
+      </div>
+    </div>
+
+    <!-- load the js file -->
     <script src="js/app.js"></script>
 </body>
 </html>

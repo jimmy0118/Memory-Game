@@ -1,32 +1,38 @@
 // Create a list that holds all cards
-const cardList = ["fas fa-cat", "fas fa-cat",
-                  "fas fa-chess-knight", "fas fa-chess-knight",
-                  "fas fa-apple-alt", "fas fa-apple-alt",
-                  "fas fa-futbol", "fas fa-futbol",
-                  "fas fa-car-side", "fas fa-car-side",
-                  "fas fa-hamburger", "fas fa-hamburger",
-                  "fas fa-headphones", "fas fa-headphones",
-                  "fas fa-subway", "fas fa-subway"
-                 ];
+const cardList = [
+  "fas fa-cat", "fas fa-cat",
+  "fas fa-chess-knight", "fas fa-chess-knight",
+  "fas fa-apple-alt", "fas fa-apple-alt",
+  "fas fa-futbol", "fas fa-futbol",
+  "fas fa-car-side", "fas fa-car-side",
+  "fas fa-hamburger", "fas fa-hamburger",
+  "fas fa-headphones", "fas fa-headphones",
+  "fas fa-subway", "fas fa-subway"
+];
 
 
-// Create a list for rating
+// Create a list for showing stars
 const starList = [
-                  ["fas fa-star", "fas fa-star", "fas fa-star"],
-                  ["fas fa-star", "fas fa-star", "far fa-star"],
-                  ["fas fa-star", "far fa-star", "far fa-star"]
-                 ];
+  ["fas fa-star", "fas fa-star", "fas fa-star"],
+  ["fas fa-star", "fas fa-star", "far fa-star"],
+  ["fas fa-star", "far fa-star", "far fa-star"]
+];
 
 
 // Global variable
 const deck = document.querySelector('.deck');
-let matchingCard = [];
-let matchedCard = [];
 const attemptCounter = document.querySelector('.moves');
-let clicks = 0;
-let attempts = 0;
+const modalAttempt = document.querySelector('.modal-moves');
+const stars = document.querySelector('.stars');
+const modalStars = document.querySelector('.modal-stars');
 const restart = document.querySelector('.restart');
 const time = document.querySelector('.timer');
+const modal = document.querySelector('.modal');
+const replay = document.querySelector('.replay');
+let matchingCard = [];
+let matchedCard = [];
+let clicks = 0;
+let attempts = 0;
 let sec = 0;
 let min = 0;
 
@@ -90,14 +96,16 @@ function initGame() {
 function counter() {
   clicks++;
 
-  //Run function timer() when the first click happen
+  // Run function timer() when the first click happen
   if (clicks === 1) {
     timer();
   }
 
+  // Click two crads for one attempt
   if (clicks % 2 === 0) {
     attempts++;
     attemptCounter.textContent = attempts;
+    modalAttempt.textContent = `With ${attempts} attempts`;
   }
 
   // Giving ratings based on attempts
@@ -108,31 +116,37 @@ function counter() {
 // Function of ratings
 function rating(times) {
   let num = 0;
-  if (times <= 16) {
+  if (times <= 14) {
     num = 0;
-  } else if (times <= 24 && times > 16) {
+  } else if (times <= 20 && times > 14) {
     num = 1;
   } else {
     num = 2;
   }
+  // show different numbeof stars
   showStar(num);
 }
 
 
 // Function for showing stars
 function showStar(i) {
-  const stars = document.querySelector('.stars');
-
   // Clean out the old HTML element of showing stars
   while (stars.firstChild) {
     stars.removeChild(stars.firstChild);
+    modalStars.removeChild(modalStars.firstChild);
   }
 
-  // Creating HTML elements for showing stars
+  // Creating HTML elements for new showing stars
   for (const star of starList[i]) {
+    // For game panel
     const starHtml = document.createElement('li');
     starHtml.innerHTML = `<i class="${star}"></i>`;
     stars.appendChild(starHtml);
+
+    // For modal
+    const modalStarHtml = document.createElement('li');
+    modalStarHtml.innerHTML = `<i class="${star}"></i>`;
+    modalStars.appendChild(modalStarHtml);
   }
 }
 
@@ -184,6 +198,11 @@ function matching(evt) {
             matchingCard.splice(0, 2);
             matchedCard.push(firstCard);
             matchedCard.push(evt.target);
+
+            // When the game is finished, open modal
+            if (matchedCard.length === 16) {
+              modal.style.display = 'block';
+            }
           }, 1000);
         } else {
           // Two card are not matched
@@ -216,3 +235,18 @@ restart.addEventListener('click', initGame);
 
 // Display the initial page
 initGame();
+
+
+// When the user clicks anywhere outside of the modal, close it
+window.addEventListener('click', function(evt){
+  if (event.target == modal) {
+    modal.style.display = 'none';
+  }
+});
+
+
+// Set up the event listener for replay button
+replay.addEventListener('click', function(){
+  modal.style.display = 'none';
+  initGame();
+});
