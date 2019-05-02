@@ -27,6 +27,7 @@ const stars = document.querySelector('.stars');
 const modalStars = document.querySelector('.modal-stars');
 const restart = document.querySelector('.restart');
 const time = document.querySelector('.timer');
+const modalTime = document.querySelector('.modal-time');
 const modal = document.querySelector('.modal');
 const replay = document.querySelector('.replay');
 let matchingCard = [];
@@ -166,6 +167,11 @@ function timer() {
         min = (min < 10) ? `0${min}` : min;
       }
       time.textContent = `${min}:${sec}`;
+      if (min < 1) {
+        modalTime.textContent = `In ${sec} seconds `;
+      } else {
+        modalTime.textContent = `In ${min} minute and ${sec} seconds`;
+      }
       if (matchedCard.length === 16) {
         clearInterval(timer);
       }
@@ -181,7 +187,8 @@ function matching(evt) {
   if (evt.target.nodeName === 'LI') {
 
     // Make sure only two cards are selected at the same time
-    if (!evt.target.classList.contains('matching') && matchingCard.length < 2) {
+    if (!evt.target.classList.contains('matching') && matchingCard.length < 2
+      && !evt.target.classList.contains('matched')) {
 
       // There is already a card in matchingCard array
       if (matchingCard.length === 1) {
