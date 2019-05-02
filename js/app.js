@@ -20,8 +20,8 @@ const starList = [
 
 // Global variable
 const deck = document.querySelector('.deck');
-const matchingCard = [];
-const matchedCard = [];
+let matchingCard = [];
+let matchedCard = [];
 const attemptCounter = document.querySelector('.moves');
 let clicks = 0;
 let attempts = 0;
@@ -54,10 +54,12 @@ function shuffle(array) {
 
 // Set up the initial page
 function initGame() {
-  // CLean out the deck
+  // CLean out the deck, matchingCard and matchedCard
   while (deck.firstChild) {
     deck.removeChild(deck.firstChild);
   }
+  matchingCard = [];
+  matchedCard = [];
 
   // Chanege the order of list of the cards and create HTML elements
   for (const card of shuffle(cardList)) {
@@ -138,17 +140,23 @@ function showStar(i) {
 // Function of timer
 function timer() {
   let timer = setInterval(function() {
-    if (sec < 59) {
-      sec++;
-      sec = (sec < 10) ? `0${sec}` : sec;
+    // When first click happen, start timer
+    if (clicks !== 0) {
+      if (sec < 59) {
+        sec++;
+        sec = (sec < 10) ? `0${sec}` : sec;
+      } else {
+        sec = 0;
+        min++;
+        sec = (sec < 10) ? `0${sec}` : sec;
+        min = (min < 10) ? `0${min}` : min;
+      }
+      time.textContent = `${min}:${sec}`;
+      if (matchedCard.length === 16) {
+        clearInterval(timer);
+      }
     } else {
-      sec = 0;
-      min++;
-      sec = (sec < 10) ? `0${sec}` : sec;
-      min = (min < 10) ? `0${min}` : min;
-    }
-    time.textContent = `${min}:${sec}`;
-    if (matchedCard.length === 16) {
+      // when the restart button clicked, reset the timer
       clearInterval(timer);
     }
   }, 1000);
