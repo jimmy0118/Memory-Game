@@ -57,12 +57,12 @@ header {
     float: right;
     cursor: pointer;
     transition: transform 0.5s;
-    color: #72924d;
+    color: #263811;
 }
 
 .restart:hover {
     transform: scale(1.2, 1.2);
-    color: #263811;
+    color: #72924d;
 }
 
 .timer {
@@ -176,29 +176,63 @@ header {
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    background-color: rgba(230, 157, 157, 0.4); /* Black w/ opacity */
 }
 
 /* Modal Content/Box */
 .modal-content {
-    background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
-    padding: 20px;
-    border: 1px solid #888;
+    max-width: 800px;
+    background-color: #c8f9ff;
+    margin: 10% auto; /* 15% from the top and centered */
+    padding: 15px;
+    box-shadow: 0px 0px 4px 0px rgb(21, 19, 7);
+    border-radius: 45px;
     width: 80%; /* Could be more or less, depending on screen size */
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    font-family: 'Wendy One', sans-serif;
+    color: white;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    font-size: 30px;
 }
 
 .modal-stars {
     margin: 0;
     padding: 0;
     display: inline-block;
+    font-size: 80px;
 }
 
 .modal-stars li {
     list-style: none;
     display: inline-block;
+    color: #ffed4f;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+.modal-moves {
+    text-align: center;
+    padding: 10px;
+}
+
+.modal-time {
+    text-align: center;
+    padding: 10px;
+}
+
+.replay {
+    font-size: 40px;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 30px;
+    box-shadow: 4px 4px 12px 0px rgb(21, 19, 7);
+    margin: 5px;
+    transition: transform 0.5s;
+    background-color: #da5a86;
+}
+
+.replay:hover {
+    transform: scale(1.2, 1.2);
 }
