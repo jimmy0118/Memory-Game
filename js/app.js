@@ -214,9 +214,13 @@ function matching(evt) {
         } else {
           // Two card are not matched
           setTimeout(function() {
-            evt.target.classList.remove('matching');
-            firstCard.classList.remove('matching');
+            evt.target.classList.replace('matching', 'unmatched');
+            firstCard.classList.replace('matching', 'unmatched');
             matchingCard.splice(0, 2);
+            setTimeout(function() {
+              evt.target.classList.remove('unmatched');
+              firstCard.classList.remove('unmatched');
+            }, 1200);
           }, 1000);
         }
       } else {
